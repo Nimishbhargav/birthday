@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday 💖</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .heart {
+            font-size: 4rem;
+            color: #ff4b6e;
+            animation: beat 0.7s infinite alternate;
+            margin-bottom: 20px;
+        }
+        @keyframes beat {
+            to { transform: scale(1.2); }
+        }
+        .message {
+            background: rgba(255,255,255,0.85);
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #ff4b6e33;
+            padding: 32px 28px;
+            text-align: center;
+            max-width: 420px;
+            margin-bottom: 24px;
+        }
+        .typewriter {
+            display: inline-block;
+            border-right: 2px solid #ff4b6e;
+            font-size: 1.3rem;
+            color: #ff4b6e;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blink-caret 0.7s step-end infinite;
+            min-height: 2em;
+        }
+        @keyframes blink-caret {
+            50% { border-color: transparent; }
+        }
+        .btn {
+            margin-top: 24px;
+            padding: 12px 28px;
+            background: #ff4b6e;
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn:hover {
+            background: #d72660;
+        }
+        .final-msg {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #d72660;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart" id="heart">❤️</div>
+    <div class="message">
+        <div id="typewriter" class="typewriter"></div>
+        <div id="proposal" style="display:none;">
+            <br>
+            <span style="font-size:1.1rem;">Will you be my girlfriend? 💖</span>
+            <br>
+            <button class="btn" onclick="showFinalMsg()">Yes</button>
+            <button class="btn" onclick="showFinalMsg(false)">No</button>
+        </div>
+        <div class="final-msg" id="finalMsg"></div>
+    </div>
+    <script>
+        // Typewriter effect for birthday and feelings
+        const lines = [
+            "Happy Birthday to the most amazing person I know! 🎂🎉",
+            "On your special day, I want to share something from my heart...",
+            "I've liked you for a long time, and today I want to be brave."
+        ];
+        let line = 0, char = 0;
+        const typewriter = document.getElementById('typewriter');
+        function typeLine() {
+            if (line < lines.length) {
+                if (char <= lines[line].length) {
+                    typewriter.textContent = lines[line].slice(0, char);
+                    char++;
+                    setTimeout(typeLine, 60);
+                } else {
+                    char = 0;
+                    line++;
+                    setTimeout(() => {
+                        typewriter.innerHTML += "<br>";
+                        typeLine();
+                    }, 700);
+                }
+            } else {
+                setTimeout(() => {
+                    typewriter.style.display = "none";
+                    document.getElementById('proposal').style.display = "block";
+                }, 900);
+            }
+        }
+        typeLine();
+
+        // Heart animation (optional extra)
+        setInterval(() => {
+            const heart = document.getElementById('heart');
+            heart.textContent = heart.textContent === "❤️" ? "💖" : "❤️";
+        }, 700);
+
+        // Show final message based on answer
+        function showFinalMsg(yes=true) {
+            document.getElementById('proposal').style.display = "none";
+            const msg = document.getElementById('finalMsg');
+            if (yes) {
+                msg.textContent = "You made me the happiest person today! 💍💞";
+            } else {
+                msg.textContent = "No matter what, I wish you all the happiness in the world! 😊";
+            }
+            msg.style.display = "block";
+        }
+    </script>
+</body>
+</html>
